@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empty-canvas</title>
+    <style>
+        canvas {
+            border: 1px #000 solid;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="screen"></canvas>
+
+    <script>
+        const screen = document.getElementById("screen");
+        const ctx = screen.getContext("2d");
+
+        //setting width & height
+        const width = 400, height = 400;
+        screen.width = width;
+        screen.height = height;
+
+        //for animated projects
+        function animate(time) {
+            update(time);
+            render(time);
+            requestAnimationFrame((time) => animate(time));
+        }
+
+        function render(time) {
+            ctx.clearRect(0, 0, width, height);
+        }
+
+        function update(time) {
+
+        }
+
+        //for non-animated projects
+        function drawOnScreen() {
+            // drawRect({filled: false});
+            // drawLine({});
+            drawText({});
+        }
+
+        //some utils
+
+        function drawRect({
+            x = 0,
+            y = 0,
+            w = 10,
+            h = 10,
+            color = "#000000",
+            filled = true
+        }) {
+            ctx.beginPath();
+            ctx.fillStyle = color;
+            filled ? ctx.fillRect(x, y, w, h) : ctx.strokeRect(x, y, w, h);
+            ctx.closePath();
+        }
+
+        function drawLine({
+            x1 = 0,
+            y1 = 0,
+            x2 = 10,
+            y2 = 10
+        }) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function drawText({
+            font = "20px TimesNewRoman",
+            color = "#000000",
+            x = 20,
+            y = 20,
+            text = "NO USER TEXT",
+        }) {
+            ctx.beginPath();
+            ctx.font = font;
+            ctx.fillStyle = color;
+            ctx.fillText(text, x, y);
+            ctx.closePath();
+        }
+
+
+
+        //calling functions
+
+        drawOnScreen();
+        //animate(0);
+
+        //before using comment requestAnimationFrame
+        //setInterval(animate, 200);
+
+    </script>
+</body>
+
+</html>
